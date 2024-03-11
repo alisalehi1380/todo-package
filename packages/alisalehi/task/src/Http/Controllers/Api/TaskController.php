@@ -3,6 +3,7 @@
 namespace AliSalehi\Task\Http\Controllers\Api;
 
 use AliSalehi\Task\Models\Task;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,17 +42,22 @@ class TaskController extends ApiController
     
     public function update(Task $task, StoreRequest $request): JsonResponse
     {
-        $this->taskRepository->update($task, $request->all());
-        return $this->successResponse([], 'task updated successfully');
+        try {
+            $this->taskRepository->update($task, $request->all());
+            return $this->successResponse([], 'task updated successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->errorResponse([], 'Task not found or updating failed.', Response::HTTP_NOT_FOUND);
+        }
     }
     
     public function destroy(Task $task): JsonResponse
     {
-        $deleted = $this->taskRepository->delete($task);
-        if (!$deleted) {
+        try {
+            $this->taskRepository->delete($task);
+            return $this->successResponse([], 'success delete');
+        } catch (ModelNotFoundException $e) {
             return $this->errorResponse([], 'Task not found or deletion failed.', Response::HTTP_NOT_FOUND);
         }
-        return $this->successResponse([], 'success delete');
     }
     
     private function getFilteredTasks(Request $request)
