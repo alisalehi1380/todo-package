@@ -4,5 +4,5 @@ return [
         'table' => 'users',
         'model' => 'App\Models\User',
     ],
-    'middleware' => ''
+    'middleware' => 'AliSalehi\Task\Http\Middleware\TaskMiddleware'
 ];

@@ -159,7 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        \AliSalehi\Task\TaskServiceProvider::class,
         /*
          * Application Service Providers...
          */
