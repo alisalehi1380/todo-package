@@ -11,6 +11,7 @@ class Task extends Model
 {
     use HasFactory;
     
+    const Id = 'id';
     const TRUE = '1';
     const FALSE = '0';
     const TITLE = 'title';

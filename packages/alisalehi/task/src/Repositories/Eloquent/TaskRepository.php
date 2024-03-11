@@ -29,7 +29,7 @@ class TaskRepository implements TaskRepositoryInterface
     
     public function delete(Task $task)
     {
-        return Task::query()->destroy($task->getKey());
+        return Task::query()->where(Task::Id, $task->getKey())->delete();
     }
     
     public function getTasksByCompletionStatus()
