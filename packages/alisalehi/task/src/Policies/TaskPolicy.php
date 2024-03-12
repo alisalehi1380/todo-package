@@ -3,15 +3,13 @@
 namespace AliSalehi\Task\Policies;
 
 use AliSalehi\Task\Models\Task;
-use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class TaskPolicy
 {
-    use HandlesAuthorization;
-    
-    public function manage(User $user, Task $task) : bool
+    public static function allows(Task $task) : bool
     {
-        return $user->getKey() === $task->{Task::USER_ID};
+        Auth::loginUsingId(1);
+        return Auth::user()->getKey() === $task->{Task::USER_ID};
     }
 }

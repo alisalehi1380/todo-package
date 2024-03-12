@@ -3,6 +3,7 @@
 namespace AliSalehi\Task\Http\Controllers\Api;
 
 use AliSalehi\Task\Models\Task;
+use AliSalehi\Task\Policies\TaskPolicy;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,7 +18,6 @@ class TaskController extends ApiController
     
     public function __construct(TaskRepositoryInterface $taskRepository)
     {
-//        $this->authorize('manage');
         $this->taskRepository = $taskRepository;
     }
     
@@ -30,6 +30,7 @@ class TaskController extends ApiController
     
     public function show(Task $task): JsonResponse
     {
+        TaskPolicy::allows($task);
         $data = TaskResource::make($this->taskRepository->find($task));
         return $this->successResponse($data);
     }
@@ -42,6 +43,7 @@ class TaskController extends ApiController
     
     public function update(Task $task, StoreRequest $request): JsonResponse
     {
+        TaskPolicy::allows($task);
         try {
             $this->taskRepository->update($task, $request->all());
             return $this->successResponse([], 'task updated successfully');
@@ -52,6 +54,7 @@ class TaskController extends ApiController
     
     public function destroy(Task $task): JsonResponse
     {
+        TaskPolicy::allows($task);
         try {
             $this->taskRepository->delete($task);
             return $this->successResponse([], 'success delete');
