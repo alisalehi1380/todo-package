@@ -1,6 +1,6 @@
 <?php
 
-namespace AliSalehi\Task\src\database\seeders;
+namespace AliSalehi\Task\database\seeders;
 
 use AliSalehi\Task\Models\Task;
 use Illuminate\Database\Seeder;

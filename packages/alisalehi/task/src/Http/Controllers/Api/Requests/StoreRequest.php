@@ -1,8 +1,8 @@
 <?php
 
-namespace AliSalehi\Task\Src\Http\Controllers\Api\Requests;
+namespace AliSalehi\Task\Http\Controllers\Api\Requests;
 
-use AliSalehi\Task\Src\Models\Task;
+use AliSalehi\Task\Models\Task;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
